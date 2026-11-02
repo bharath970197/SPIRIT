@@ -19,4 +19,4 @@ RUN unzip -q /tmp/spirit.zip -d /tmp/spirit \
 RUN pip install --no-cache-dir "Flask>=3.0,<4.0" "gunicorn>=22.0,<24.0"
 
 EXPOSE 10000
-CMD ["sh", "-c", "gunicorn app:app --bind 0.0.0.0:${PORT:-10000} --workers 1 --threads 4 --timeout 120"]
+CMD ["sh", "-c", "python -c \"from app import init_db; init_db()\" && exec gunicorn app:app --bind 0.0.0.0:${PORT:-10000} --workers 1 --threads 4 --timeout 120"]
